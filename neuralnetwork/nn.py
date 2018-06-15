@@ -9,8 +9,8 @@ def nonlin(x, deriv=False):
 
 
 X = np.array([[5, 2, 2],
-              [4, 4, 1],
-              [2, 8, 2],
+              [4, 6, 1],
+              [1, 3, 2],
               [2, 2, 3],
               [2,7,1]])
 print(X.shape)
@@ -18,7 +18,7 @@ print(X.shape)
 
 y = np.array([[1],
               [1],
-              [1],
+              [0],
               [0],
               [0]])
 

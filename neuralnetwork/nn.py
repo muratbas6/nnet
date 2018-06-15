@@ -34,13 +34,13 @@ syn3 = 2*np.random.rand(4,1)-1
 
 for j in range(600000):
 
-    # Feed forward through layers 0, 1, and 2
+
     l0 = X
     l1 = nonlin(np.dot(l0, syn0))
     l2 = nonlin(np.dot(l1, syn1))
     l3 = nonlin(np.dot(l2,syn2))
     l4 = nonlin(np.dot(l3,syn3))
-    # how much did we miss the target value?
+
     l4_error = y - l4
 
     if (j % 10000) == 0:
@@ -49,11 +49,9 @@ for j in range(600000):
 
     l4_delta = l4_error * nonlin(l4, deriv=True)
 
-    # how much did each l1 value contribute to the l2 error (according to the weights)?
     l3_error = l4_delta.dot(syn3.T)
 
-    # in what direction is the target l1?
-    # were we really sure? if so, don't change too much.
+    
     l3_delta = l3_error * nonlin(l3, deriv=True)
 
     l2_error=l3_delta.dot(syn2.T)

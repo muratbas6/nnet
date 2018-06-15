@@ -21,8 +21,8 @@ np.random.seed(1)
 
 
 syn0 = 2 * np.random.randn(4, 4) - 1
-syn1 = 2 * np.random.randn(4, 1) - 1
-syn2 = 2*np.random.rand(1,4)-1
+syn1 = 2 * np.random.randn(4, 4) - 1
+syn2 = 2*np.random.rand(4,4)-1
 syn3 = 2*np.random.rand(4,1)-1
 
 cost = np.zeros(100000)
@@ -35,6 +35,7 @@ for j in range(100000):
     l2 = nonlin(np.dot(l1, syn1))
     l3 = nonlin(np.dot(l2,syn2))
     l4 = nonlin(np.dot(l3,syn3))
+
 
     l4_error = y - l4
 
@@ -56,12 +57,17 @@ for j in range(100000):
 
     syn3 += l3.T.dot(l4_delta)
     syn2 += l2.T.dot(l3_delta)
-    syn1 += l1.T.dot(l2_delta)/9
+    syn1 += l1.T.dot(l2_delta)
     syn0 += l0.T.dot(l1_delta)
+print(l0.shape)
+print(l1.shape)
+print(l2.shape)
+print(l3.shape)
+print(l4.shape)
 
 predict = np.array([[5.1,3.8,1.9,0.4]])
-l0 = predict
-l1 = nonlin(np.dot(l0, syn0))
+lx = predict
+l1 = nonlin(np.dot(lx, syn0))
 l2 = nonlin(np.dot(l1, syn1))
 l3 = nonlin(np.dot(l2,syn2))
 l4 = nonlin(np.dot(l3,syn3))

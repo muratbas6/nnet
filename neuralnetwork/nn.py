@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 data = pd.read_csv('iris.csv',names=["x1","x2","x3","x4","y"])
@@ -24,7 +25,7 @@ syn1 = 2 * np.random.randn(4, 1) - 1
 syn2 = 2*np.random.rand(1,4)-1
 syn3 = 2*np.random.rand(4,1)-1
 
-
+cost = np.zeros(100000)
 
 for j in range(100000):
 
@@ -37,8 +38,8 @@ for j in range(100000):
 
     l4_error = y - l4
 
-    if (j % 10000) == 0:
-        print(j,".Epoch ","Error:" + str(np.mean(np.abs(l4_error))))
+    print(j,".Epoch ","Error:" + str(np.mean(np.abs(l4_error))))
+    cost[j] = np.mean(np.abs(l4_error))
 
     l4_delta = l4_error * nonlin(l4, deriv=True)
 
@@ -65,3 +66,10 @@ l2 = nonlin(np.dot(l1, syn1))
 l3 = nonlin(np.dot(l2,syn2))
 l4 = nonlin(np.dot(l3,syn3))
 print(l4)
+
+fig, ax = plt.subplots()
+ax.plot(np.arange(100000), cost, 'r')
+ax.set_xlabel('Iterations')
+ax.set_ylabel('Cost')
+ax.set_title('Error vs. Training Epoch')
+plt.show()
